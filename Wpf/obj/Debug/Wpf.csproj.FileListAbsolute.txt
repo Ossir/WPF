@@ -43,3 +43,19 @@ C:\Wpf\Wpf\obj\Debug\Wpf.Properties.Resources.resources
 C:\Wpf\Wpf\obj\Debug\Wpf.csproj.GenerateResource.Cache
 C:\work\git\WPF\Wpf\obj\Debug\Wpf.exe
 C:\work\git\WPF\Wpf\obj\Debug\Wpf.pdb
+<<<<<<< HEAD
+=======
+C:\work\git\WPF\Wpf\bin\Debug\Wpf.exe
+C:\work\git\WPF\Wpf\bin\Debug\Wpf.pdb
+C:\work\git\WPF\Wpf\bin\Debug\WPFToolkit.dll
+C:\work\git\WPF\Wpf\bin\Debug\WPFToolkit.pdb
+C:\work\git\WPF\Wpf\obj\Debug\ResolveAssemblyReference.cache
+C:\work\git\WPF\Wpf\obj\Debug\Window1.g.cs
+C:\work\git\WPF\Wpf\obj\Debug\App.g.cs
+C:\work\git\WPF\Wpf\obj\Debug\Wpf_MarkupCompile.cache
+C:\work\git\WPF\Wpf\obj\Debug\Wpf_MarkupCompile.lref
+C:\work\git\WPF\Wpf\obj\Debug\Window1.baml
+C:\work\git\WPF\Wpf\obj\Debug\Wpf.g.resources
+C:\work\git\WPF\Wpf\obj\Debug\Wpf.Properties.Resources.resources
+C:\work\git\WPF\Wpf\obj\Debug\Wpf.csproj.GenerateResource.Cache
+>>>>>>> NewMove
