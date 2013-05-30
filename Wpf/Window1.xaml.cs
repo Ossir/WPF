@@ -475,6 +475,33 @@ namespace Wpf
             //table.RowBackground = Brushes.Transparent;
             ////table.SetValue(DraggableExtender.CanDragProperty, true);
             //canvas1.Children.Add(table);
+            //List<string> source = new List<string>();
+            //source.Add("as");
+            //source.Add("asd");
+            //DataGrid table = new DataGrid();
+            //table.Items.Add(source[0]);
+            //table.Items.Add(source[1]);
+            //table.Columns.Add(new DataGridTextColumn { Header = "Name", Binding = new Binding("Name") });
+            //canvas1.Children.Add(table);
+            DataGrid table = new DataGrid();
+            DinTable t = new DinTable();
+            table.ItemsSource = t.Columns; 
+            int count = 0;
+            foreach (var col in t.Columns)
+            {
+                table.Columns.Add(
+                    new DataGridTextColumn
+                    {
+                        Header = "",
+                        Binding = new Binding(string.Format("[{0}]", count))
+                    }
+                    );
+
+                count++;
+            }
+            table.CanUserSortColumns = true;
+            table.IsReadOnly = false;
+            canvas1.Children.Add(table);
         }
 
         private string _previewWindowXaml =

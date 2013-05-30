@@ -59,7 +59,7 @@
                 <ImageBrush ImageSource="Resources/minus_search_out_zoom.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="10,10,0,0" Name="button11" ToolTip="Справка" VerticalAlignment="Top" Width="32" Click="button11_Click" Visibility="Hidden">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="10,10,0,0" Name="button11" ToolTip="Справка" VerticalAlignment="Top" Width="32" Click="button11_Click" Visibility="Visible">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/help.png" />
             </Button.Background>
