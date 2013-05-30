@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Wpf
 {
@@ -61,7 +62,7 @@ namespace Wpf
         // The offset from the top, left of the item being dragged 
         // and the original mouse down
         private static Point _offset;
-
+        private static Point clickPosition;
         // This is triggered when the mouse button is pressed 
         // on the element being hooked
         static void element_PreviewMouseDown(object sender,
@@ -75,7 +76,10 @@ namespace Wpf
             // start dragging and get the offset of the mouse 
             // relative to the element
             _isDragging = true;
-            _offset = e.GetPosition(element);
+            clickPosition = e.GetPosition(element);
+            element.CaptureMouse();
+            //_offset = e.GetPosition(element);
+
         }
 
         // This is triggered when the mouse is moved over the element
@@ -91,15 +95,26 @@ namespace Wpf
             Canvas canvas = element.Parent as Canvas;
             if (canvas == null) return;
 
-            // Get the position of the mouse relative to the canvas
-            Point mousePoint = e.GetPosition(canvas);
+            Point currentPosition = e.GetPosition(element.Parent as UIElement);
 
-            // Offset the mouse position by the original offset position
-            mousePoint.Offset(-_offset.X, -_offset.Y);
+            var transform = element.RenderTransform as TranslateTransform;
+            if (transform == null)
+            {
+                transform = new TranslateTransform();
+                element.RenderTransform = transform;
+            }
 
-            // Move the element on the canvas
-            element.SetValue(Canvas.LeftProperty, mousePoint.X);
-            element.SetValue(Canvas.TopProperty, mousePoint.Y);
+            transform.X = currentPosition.X - clickPosition.X;
+            transform.Y = currentPosition.Y - clickPosition.Y;
+            //// Get the position of the mouse relative to the canvas
+            //Point mousePoint = e.GetPosition(canvas);
+
+            //// Offset the mouse position by the original offset position
+            //mousePoint.Offset(-_offset.X, -_offset.Y);
+
+            //// Move the element on the canvas
+            //element.SetValue(Canvas.LeftProperty, mousePoint.X);
+            //element.SetValue(Canvas.TopProperty, mousePoint.Y);
         }
 
         // this is triggered when the mouse is released
@@ -107,6 +122,8 @@ namespace Wpf
                 MouseButtonEventArgs e)
         {
             _isDragging = false;
+            FrameworkElement element = sender as FrameworkElement;
+            element.ReleaseMouseCapture();
         }
 
     }
