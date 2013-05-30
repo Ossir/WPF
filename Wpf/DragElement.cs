@@ -61,7 +61,6 @@ namespace Wpf
         private static bool _isDragging = false;
         // The offset from the top, left of the item being dragged 
         // and the original mouse down
-        private static Point _offset;
 
         private static Point clickPosition;
         // This is triggered when the mouse button is pressed 

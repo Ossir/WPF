@@ -38,7 +38,7 @@
                 <ImageBrush ImageSource="Resources/help.png" />
             </Button.Background>
         </Button>
-        <Canvas Margin="12,90,12,12" Name="canvas1" Width="1234" Height="810" Background="Gray"></Canvas>
+        <Canvas Margin="12,90,12,12" Name="canvas1" Width="1234" Height="810" Background="Gray" ClipToBounds="True"></Canvas>
         <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="313,51,0,0" Name="button7" VerticalAlignment="Top" Width="32" Click="button7_Click" ToolTip="Печать изображения">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/printer_print_hardware.png" />
