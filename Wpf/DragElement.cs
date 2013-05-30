@@ -62,6 +62,7 @@ namespace Wpf
         // The offset from the top, left of the item being dragged 
         // and the original mouse down
         private static Point _offset;
+
         private static Point clickPosition;
         // This is triggered when the mouse button is pressed 
         // on the element being hooked
@@ -78,7 +79,6 @@ namespace Wpf
             _isDragging = true;
             clickPosition = e.GetPosition(element);
             element.CaptureMouse();
-            //_offset = e.GetPosition(element);
 
         }
 
@@ -106,15 +106,6 @@ namespace Wpf
 
             transform.X = currentPosition.X - clickPosition.X;
             transform.Y = currentPosition.Y - clickPosition.Y;
-            //// Get the position of the mouse relative to the canvas
-            //Point mousePoint = e.GetPosition(canvas);
-
-            //// Offset the mouse position by the original offset position
-            //mousePoint.Offset(-_offset.X, -_offset.Y);
-
-            //// Move the element on the canvas
-            //element.SetValue(Canvas.LeftProperty, mousePoint.X);
-            //element.SetValue(Canvas.TopProperty, mousePoint.Y);
         }
 
         // this is triggered when the mouse is released
