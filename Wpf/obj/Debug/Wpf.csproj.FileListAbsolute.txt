@@ -41,3 +41,5 @@ C:\Wpf\Wpf\obj\Debug\Window1.baml
 C:\Wpf\Wpf\obj\Debug\Wpf.g.resources
 C:\Wpf\Wpf\obj\Debug\Wpf.Properties.Resources.resources
 C:\Wpf\Wpf\obj\Debug\Wpf.csproj.GenerateResource.Cache
+C:\work\git\WPF\Wpf\obj\Debug\Wpf.exe
+C:\work\git\WPF\Wpf\obj\Debug\Wpf.pdb
