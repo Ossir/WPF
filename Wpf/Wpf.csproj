@@ -104,7 +104,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DinTable.cs" />
     <Compile Include="DragElement.cs" />
     <Compile Include="ObjSer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

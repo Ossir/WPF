@@ -68,16 +68,19 @@ namespace Wpf
         static void element_PreviewMouseDown(object sender,
                 System.Windows.Input.MouseButtonEventArgs e)
         {
-            // Ensure it's a framework element as we'll need to 
-            // get access to the visual tree
-            FrameworkElement element = sender as FrameworkElement;
-            if (element == null) return;
+            if (e.ChangedButton == MouseButton.Right)
+            {
+                // Ensure it's a framework element as we'll need to 
+                // get access to the visual tree
+                FrameworkElement element = sender as FrameworkElement;
+                if (element == null) return;
 
-            // start dragging and get the offset of the mouse 
-            // relative to the element
-            _isDragging = true;
-            clickPosition = e.GetPosition(element);
-            element.CaptureMouse();
+                // start dragging and get the offset of the mouse 
+                // relative to the element
+                _isDragging = true;
+                clickPosition = e.GetPosition(element);
+                element.CaptureMouse();
+            }
 
         }
 

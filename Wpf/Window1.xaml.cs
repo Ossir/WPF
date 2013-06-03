@@ -44,6 +44,22 @@ namespace Wpf
 
         }
 
+        private TextBox CreateTB()
+        {
+            TextBox tb = new TextBox();
+            tb.ContextMenu = null;
+            tb.AcceptsReturn = true;
+            tb.Height = Double.NaN;
+            tb.Width = Double.NaN;
+            tb.MinWidth = 50;
+            tb.MouseLeftButtonDown += new MouseButtonEventHandler(TBFocusEvent);
+            tb.GotFocus += new RoutedEventHandler(TBFocusEvent);
+            tb.LostFocus += new RoutedEventHandler(TBLostFocus);
+            tb.Background = Brushes.Transparent;
+            tb.SetValue(DraggableExtender.CanDragProperty, true);
+            return tb;
+        }
+
         public string ImageToString(ImageSource source)
         {
             byte[] data;
@@ -171,16 +187,7 @@ namespace Wpf
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-            textList.Add(new TextBox());
-            textList.Last().AcceptsReturn = true;
-            textList.Last().Height = Double.NaN;
-            textList.Last().Width = Double.NaN;
-            textList.Last().MinWidth = 50;
-            textList.Last().MouseLeftButtonDown += new MouseButtonEventHandler(TBFocusEvent);
-            textList.Last().GotFocus += new RoutedEventHandler(TBFocusEvent);
-            textList.Last().LostFocus += new RoutedEventHandler(TBLostFocus);
-            textList.Last().Background = Brushes.Transparent;
-            textList.Last().SetValue(DraggableExtender.CanDragProperty, true);
+            textList.Add(CreateTB());
             canvas1.Children.Add(textList.Last());
         }
 
@@ -458,6 +465,7 @@ namespace Wpf
                     column.Width = GridLength.Auto;
                     table.ColumnDefinitions.Add(column);
                     TextBox tb = new TextBox();
+                    tb.ContextMenu = null;
                     tb.MinWidth = 50;
                     tb.Text = "";
                     Grid.SetRow(tb, i);
