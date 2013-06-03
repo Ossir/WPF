@@ -44,6 +44,22 @@ namespace Wpf
 
         }
 
+        private TextBox CreateTB()
+        {
+            TextBox tb = new TextBox();
+            tb.ContextMenu = null;
+            tb.AcceptsReturn = true;
+            tb.Height = Double.NaN;
+            tb.Width = Double.NaN;
+            tb.MinWidth = 50;
+            tb.MouseLeftButtonDown += new MouseButtonEventHandler(TBFocusEvent);
+            tb.GotFocus += new RoutedEventHandler(TBFocusEvent);
+            tb.LostFocus += new RoutedEventHandler(TBLostFocus);
+            tb.Background = Brushes.Transparent;
+            tb.SetValue(DraggableExtender.CanDragProperty, true);
+            return tb;
+        }
+
         public string ImageToString(ImageSource source)
         {
             byte[] data;
@@ -171,16 +187,7 @@ namespace Wpf
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-            textList.Add(new TextBox());
-            textList.Last().AcceptsReturn = true;
-            textList.Last().Height = Double.NaN;
-            textList.Last().Width = Double.NaN;
-            textList.Last().MinWidth = 50;
-            textList.Last().MouseLeftButtonDown += new MouseButtonEventHandler(TBFocusEvent);
-            textList.Last().GotFocus += new RoutedEventHandler(TBFocusEvent);
-            textList.Last().LostFocus += new RoutedEventHandler(TBLostFocus);
-            textList.Last().Background = Brushes.Transparent;
-            textList.Last().SetValue(DraggableExtender.CanDragProperty, true);
+            textList.Add(CreateTB());
             canvas1.Children.Add(textList.Last());
         }
 
@@ -446,35 +453,28 @@ namespace Wpf
 
         private void button11_Click(object sender, RoutedEventArgs e)
         {
-            ////DataGrid table = new DataGrid();
-            ////char name = 'a';
-            ////List<Object> source = new List<Object>();
-            ////for (int i = 0; i < 5; i++)
-            ////{
-            ////    Object ob = new Object();
-            ////    for (int j = 0; j < 5; j++)
-            ////    {
-            ////        string nameS = name.ToString();
-            ////        ob.addDynamicMember(nameS, " ");
-            ////        name++;
-            ////    }
-            ////    source.Add(ob);
-            ////}
-            //DataGrid table = new DataGrid();
-            //List<Data> source = new List<Data>();
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    source.Add(new Data() { a = "", b = "" ,c=""});
-            //}
-            ////table.CanUserAddRows = true;
-            ////table.CanUserDeleteRows = true;
-            ////table.IsReadOnly = false;
-            //table.ItemsSource = source;
-            //table.Columns[2].Width = 0;
-            //table.Background = Brushes.Transparent;
-            //table.RowBackground = Brushes.Transparent;
-            ////table.SetValue(DraggableExtender.CanDragProperty, true);
-            //canvas1.Children.Add(table);
+            Grid table = new Grid();
+            table.SetValue(DraggableExtender.CanDragProperty, true);
+            for (int i = 0; i < 5; i++)
+            {
+                RowDefinition row = new RowDefinition();
+                table.RowDefinitions.Add(row);
+                for (int j = 0; j < 5; j++)
+                {
+                    ColumnDefinition column = new ColumnDefinition();
+                    column.Width = GridLength.Auto;
+                    table.ColumnDefinitions.Add(column);
+                    TextBox tb = new TextBox();
+                    tb.ContextMenu = null;
+                    tb.MinWidth = 50;
+                    tb.Text = "";
+                    Grid.SetRow(tb, i);
+                    Grid.SetColumn(tb, j);
+                    table.Children.Add(tb);
+                }
+
+            }
+            canvas1.Children.Add(table);
         }
 
         private string _previewWindowXaml =
@@ -491,8 +491,6 @@ namespace Wpf
 
         internal void DoPreview(string title)
         {
-            //Canvas c = new Canvas();
-            //canvas1.Children.CopyTo(c.Children, 0);
             string fileName = System.IO.Path.GetRandomFileName();
             try
             {
