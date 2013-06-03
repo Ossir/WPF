@@ -446,61 +446,26 @@ namespace Wpf
 
         private void button11_Click(object sender, RoutedEventArgs e)
         {
-            ////DataGrid table = new DataGrid();
-            ////char name = 'a';
-            ////List<Object> source = new List<Object>();
-            ////for (int i = 0; i < 5; i++)
-            ////{
-            ////    Object ob = new Object();
-            ////    for (int j = 0; j < 5; j++)
-            ////    {
-            ////        string nameS = name.ToString();
-            ////        ob.addDynamicMember(nameS, " ");
-            ////        name++;
-            ////    }
-            ////    source.Add(ob);
-            ////}
-            //DataGrid table = new DataGrid();
-            //List<Data> source = new List<Data>();
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    source.Add(new Data() { a = "", b = "" ,c=""});
-            //}
-            ////table.CanUserAddRows = true;
-            ////table.CanUserDeleteRows = true;
-            ////table.IsReadOnly = false;
-            //table.ItemsSource = source;
-            //table.Columns[2].Width = 0;
-            //table.Background = Brushes.Transparent;
-            //table.RowBackground = Brushes.Transparent;
-            ////table.SetValue(DraggableExtender.CanDragProperty, true);
-            //canvas1.Children.Add(table);
-            //List<string> source = new List<string>();
-            //source.Add("as");
-            //source.Add("asd");
-            //DataGrid table = new DataGrid();
-            //table.Items.Add(source[0]);
-            //table.Items.Add(source[1]);
-            //table.Columns.Add(new DataGridTextColumn { Header = "Name", Binding = new Binding("Name") });
-            //canvas1.Children.Add(table);
-            DataGrid table = new DataGrid();
-            DinTable t = new DinTable();
-            table.ItemsSource = t.Columns; 
-            int count = 0;
-            foreach (var col in t.Columns)
+            Grid table = new Grid();
+            table.SetValue(DraggableExtender.CanDragProperty, true);
+            for (int i = 0; i < 5; i++)
             {
-                table.Columns.Add(
-                    new DataGridTextColumn
-                    {
-                        Header = "",
-                        Binding = new Binding(string.Format("[{0}]", count))
-                    }
-                    );
+                RowDefinition row = new RowDefinition();
+                table.RowDefinitions.Add(row);
+                for (int j = 0; j < 5; j++)
+                {
+                    ColumnDefinition column = new ColumnDefinition();
+                    column.Width = GridLength.Auto;
+                    table.ColumnDefinitions.Add(column);
+                    TextBox tb = new TextBox();
+                    tb.MinWidth = 50;
+                    tb.Text = "";
+                    Grid.SetRow(tb, i);
+                    Grid.SetColumn(tb, j);
+                    table.Children.Add(tb);
+                }
 
-                count++;
             }
-            table.CanUserSortColumns = true;
-            table.IsReadOnly = false;
             canvas1.Children.Add(table);
         }
 
@@ -518,8 +483,6 @@ namespace Wpf
 
         internal void DoPreview(string title)
         {
-            //Canvas c = new Canvas();
-            //canvas1.Children.CopyTo(c.Children, 0);
             string fileName = System.IO.Path.GetRandomFileName();
             try
             {
