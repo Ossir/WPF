@@ -18,12 +18,13 @@ namespace Wpf
         {
         }
 
-        public SerGrid(double x, double y, int rows, int columns)
+        public SerGrid(double x, double y, int rows, int columns, List<string> text)
         {
             this.X = x;
             this.Y = y;
             this.rows = rows;
             this.columns = columns;
+            this.text = text;
         }
     }
 }
