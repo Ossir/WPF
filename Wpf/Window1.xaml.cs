@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using Microsoft.Windows.Controls;
-using System.Windows.Forms.Integration;
-using System.Data;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps;
 
@@ -57,6 +50,18 @@ namespace Wpf
             tb.LostFocus += new RoutedEventHandler(TBLostFocus);
             tb.Background = Brushes.Transparent;
             tb.SetValue(DraggableExtender.CanDragProperty, true);
+            return tb;
+        }
+
+        private TextBox CreateTableTB()
+        {
+            TextBox tb = new TextBox();
+            tb.ContextMenu = null;
+            tb.AcceptsReturn = true;
+            tb.Height = Double.NaN;
+            tb.Width = Double.NaN;
+            tb.MinWidth = 50;
+            tb.Background = Brushes.Transparent;
             return tb;
         }
 
@@ -135,23 +140,22 @@ namespace Wpf
                     TestFileStream.Close();
                     for (int i = 0; i < os.GetTextEnumerator(); i++)
                     {
-                        textList.Add(new TextBox());
-                        textList.Last().AcceptsReturn = true;
-                        textList.Last().Height = Double.NaN;
-                        textList.Last().Width = Double.NaN;
-                        textList.Last().MinWidth = 50;
-                        textList.Last().MouseLeftButtonDown += new MouseButtonEventHandler(TBFocusEvent);
-                        textList.Last().LostFocus += new RoutedEventHandler(TBLostFocus);
-                        textList.Last().Background = Brushes.Transparent;
-                        textList.Last().SetValue(DraggableExtender.CanDragProperty, true);
+                        textList.Add(CreateTB());
                         textList.Last().Text = os.GetFromTextList(i).Text;
                         textList.Last().FontFamily = new FontFamily(os.GetFromTextList(i).FontName);
                         textList.Last().FontSize = os.GetFromTextList(i).FontSize;
                         BrushConverter bc = new BrushConverter();
                         textList.Last().Foreground = (Brush)bc.ConvertFrom(os.GetFromTextList(i).FontColor);
+                        var transform = textList.Last().RenderTransform as TranslateTransform;
+                        if (transform == null)
+                        {
+                            transform = new TranslateTransform();
+                            textList.Last().RenderTransform = transform;
+                        }
+                        transform.X = os.GetFromTextList(i).X;
+                        transform.Y = os.GetFromTextList(i).Y;
+                        textList.Last().RenderTransform = transform;
                         canvas1.Children.Add(textList.Last());
-                        Canvas.SetLeft(textList.Last(), os.GetFromTextList(i).X);
-                        Canvas.SetTop(textList.Last(), os.GetFromTextList(i).Y);
                     }
                     for (int i = 0; i < os.GetPicEnumerator(); i++)
                     {
@@ -159,9 +163,16 @@ namespace Wpf
                         pictureBox1.Last().MouseLeftButtonDown += new MouseButtonEventHandler(PBFocusEvent);
                         pictureBox1.Last().Source = StringToImage(os.GetFromPicList(i).PicArray);
                         pictureBox1.Last().SetValue(DraggableExtender.CanDragProperty, true);
+                        var transform = pictureBox1.Last().RenderTransform as TranslateTransform;
+                        if (transform == null)
+                        {
+                            transform = new TranslateTransform();
+                            pictureBox1.Last().RenderTransform = transform;
+                        }
+                        transform.X = os.GetFromPicList(i).X;
+                        transform.Y = os.GetFromPicList(i).Y;
+                        pictureBox1.Last().RenderTransform = transform;
                         canvas1.Children.Add(pictureBox1.Last());
-                        Canvas.SetLeft(pictureBox1.Last(), os.GetFromPicList(i).X);
-                        Canvas.SetTop(pictureBox1.Last(), os.GetFromPicList(i).Y);
                     }
                 }
                 else
@@ -464,10 +475,7 @@ namespace Wpf
                     ColumnDefinition column = new ColumnDefinition();
                     column.Width = GridLength.Auto;
                     table.ColumnDefinitions.Add(column);
-                    TextBox tb = new TextBox();
-                    tb.ContextMenu = null;
-                    tb.MinWidth = 50;
-                    tb.Text = "";
+                    TextBox tb = CreateTableTB();
                     Grid.SetRow(tb, i);
                     Grid.SetColumn(tb, j);
                     table.Children.Add(tb);
@@ -536,17 +544,5 @@ namespace Wpf
                 }
             }
         } 
-        //for DataGrid table
-        //DataGrid table = new DataGrid();
-        //List<TextBox> tableData = new List<TextBox>(5);
-        //table.ItemsSource = tableData;
-        ////for (int i = 0; i < 5; i++)
-        ////{
-        ////    table.Columns.Add(new DataGridTextColumn());
-        ////    table.CanUserAddRows = true;
-        ////    table.CanUserDeleteRows = true;
-        ////    table.IsReadOnly = false;
-        ////}
-        //canvas1.Children.Add(table);
     }
 }

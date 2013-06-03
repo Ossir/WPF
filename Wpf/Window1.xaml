@@ -13,7 +13,7 @@
                 <ImageBrush ImageSource="Resources/3floppy_unmount.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="50,52.5,0,0" Name="button2" VerticalAlignment="Top" Width="32" Click="button2_Click" ToolTip="Открыть изображение">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="50,52,0,0" Name="button2" VerticalAlignment="Top" Width="32" Click="button2_Click" ToolTip="Открыть изображение">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/folder_yellow_open(1).png" />
             </Button.Background>
