@@ -81,6 +81,13 @@ namespace Wpf.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap heatmap_table {
+            get {
+                object obj = ResourceManager.GetObject("heatmap_table", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap help {
             get {
                 object obj = ResourceManager.GetObject("help", resourceCulture);

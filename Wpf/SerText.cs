@@ -24,26 +24,20 @@ namespace Wpf
         public string FontName;
         public double FontSize;
         public string FontColor;
-        //public int PicNumber;
         public string Text;
-        //public FontStyle FontStyle;
-        //public Font FontInfo;
 
         public SerText()
         {
         }
 
-        public SerText(double x, double y, string fn, double fs, string fc, /*int pn,*/ string t /*FontStyle st*//*, Font fi*/)
+        public SerText(double x, double y, string fn, double fs, string fc, string t)
         {
             this.X = x;
             this.Y = y;
             this.FontName = fn;
             this.FontSize = fs;
             this.FontColor = fc;
-            //this.PicNumber = pn;
             this.Text = t;
-            //this.FontStyle = st;
-            //this.FontInfo = fi;
         }
     }
 }

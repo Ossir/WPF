@@ -13,3 +13,5 @@ C:\work\git\WPF\Wpf\obj\Debug\Wpf.Properties.Resources.resources
 C:\work\git\WPF\Wpf\obj\Debug\Wpf.csproj.GenerateResource.Cache
 C:\work\git\WPF\Wpf\obj\Debug\Wpf.exe
 C:\work\git\WPF\Wpf\obj\Debug\Wpf.pdb
+C:\work\git\WPF\Wpf\obj\Debug\Window2.baml
+C:\work\git\WPF\Wpf\obj\Debug\Window2.g.cs

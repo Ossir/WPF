@@ -22,6 +22,7 @@ namespace Wpf
         BitmapImage img;
         List<Image> pictureBox1 = new List<Image>();
         List<TextBox> textList = new List<TextBox>();
+        List<Grid> textGrid = new List<Grid>();
         Image selDPB = null;
         TextBox selTB = null;
         System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -464,25 +465,30 @@ namespace Wpf
 
         private void button11_Click(object sender, RoutedEventArgs e)
         {
-            Grid table = new Grid();
-            table.SetValue(DraggableExtender.CanDragProperty, true);
-            for (int i = 0; i < 5; i++)
+            Window2 tableDialog = new Window2();
+            tableDialog.ShowDialog();
+            if (tableDialog.yesButton)
             {
-                RowDefinition row = new RowDefinition();
-                table.RowDefinitions.Add(row);
-                for (int j = 0; j < 5; j++)
+                textGrid.Add(new Grid());
+                textGrid.Last().SetValue(DraggableExtender.CanDragProperty, true);
+                for (int i = 0; i < tableDialog.rows; i++)
                 {
-                    ColumnDefinition column = new ColumnDefinition();
-                    column.Width = GridLength.Auto;
-                    table.ColumnDefinitions.Add(column);
-                    TextBox tb = CreateTableTB();
-                    Grid.SetRow(tb, i);
-                    Grid.SetColumn(tb, j);
-                    table.Children.Add(tb);
-                }
+                    RowDefinition row = new RowDefinition();
+                    textGrid.Last().RowDefinitions.Add(row);
+                    for (int j = 0; j < tableDialog.columns; j++)
+                    {
+                        ColumnDefinition column = new ColumnDefinition();
+                        column.Width = GridLength.Auto;
+                        textGrid.Last().ColumnDefinitions.Add(column);
+                        TextBox tb = CreateTableTB();
+                        Grid.SetRow(tb, j);
+                        Grid.SetColumn(tb, i);
+                        textGrid.Last().Children.Add(tb);
+                    }
 
+                }
+                canvas1.Children.Add(textGrid.Last());
             }
-            canvas1.Children.Add(table);
         }
 
         private string _previewWindowXaml =
