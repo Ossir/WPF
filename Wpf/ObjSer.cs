@@ -10,6 +10,7 @@ namespace Wpf
     {
         List<SerPic> pic = new List<SerPic>();
         List<SerText> text = new List<SerText>();
+        List<SerGrid> tables = new List<SerGrid>();
 
         public ObjSer()
         {
@@ -25,6 +26,11 @@ namespace Wpf
             text.Add(t);
         }
 
+        public void AddToGridList(SerGrid t)
+        {
+            tables.Add(t);
+        }
+
         public SerPic GetFromPicList(int i)
         {
             return pic[i];
@@ -35,6 +41,11 @@ namespace Wpf
             return text[i];
         }
 
+        public SerGrid GetFromGridList(int i)
+        {
+            return tables[i];
+        }
+
         public int GetPicEnumerator()
         {
             return pic.Count;
@@ -43,6 +54,11 @@ namespace Wpf
         public int GetTextEnumerator()
         {
             return text.Count;
+        }
+
+        public int GetGridEnumerator()
+        {
+            return tables.Count;
         }
     }
 }

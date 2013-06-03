@@ -123,6 +123,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SerGrid.cs" />
     <Compile Include="SerPic.cs" />
     <Compile Include="SerText.cs" />
     <Compile Include="Window2.xaml.cs">

@@ -22,7 +22,7 @@ namespace Wpf
         BitmapImage img;
         List<Image> pictureBox1 = new List<Image>();
         List<TextBox> textList = new List<TextBox>();
-        List<Grid> textGrid = new List<Grid>();
+        List<Grid> gridList = new List<Grid>();
         Image selDPB = null;
         TextBox selTB = null;
         System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -153,8 +153,8 @@ namespace Wpf
                             transform = new TranslateTransform();
                             textList.Last().RenderTransform = transform;
                         }
-                        transform.X = os.GetFromTextList(i).X;
-                        transform.Y = os.GetFromTextList(i).Y;
+                        transform.X = os.GetFromTextList(i).X - canvas1.Margin.Left;
+                        transform.Y = os.GetFromTextList(i).Y - canvas1.Margin.Top;
                         textList.Last().RenderTransform = transform;
                         canvas1.Children.Add(textList.Last());
                     }
@@ -170,10 +170,41 @@ namespace Wpf
                             transform = new TranslateTransform();
                             pictureBox1.Last().RenderTransform = transform;
                         }
-                        transform.X = os.GetFromPicList(i).X;
-                        transform.Y = os.GetFromPicList(i).Y;
+                        transform.X = os.GetFromPicList(i).X - canvas1.Margin.Left;
+                        transform.Y = os.GetFromPicList(i).Y - canvas1.Margin.Top;
                         pictureBox1.Last().RenderTransform = transform;
                         canvas1.Children.Add(pictureBox1.Last());
+                    }
+                    for (int i = 0; i < os.GetGridEnumerator(); i++)
+                    {
+                        gridList.Add(new Grid());
+                        gridList.Last().SetValue(DraggableExtender.CanDragProperty, true);
+                        for (int f = 0; f < os.GetFromGridList(i).rows; f++)
+                        {
+                            RowDefinition row = new RowDefinition();
+                            gridList.Last().RowDefinitions.Add(row);
+                            for (int j = 0; j < os.GetFromGridList(i).columns / os.GetFromGridList(i).rows; j++)
+                            {
+                                ColumnDefinition column = new ColumnDefinition();
+                                column.Width = GridLength.Auto;
+                                gridList.Last().ColumnDefinitions.Add(column);
+                                TextBox tb = CreateTableTB();
+                                Grid.SetRow(tb, j);
+                                Grid.SetColumn(tb, f);
+                                gridList.Last().Children.Add(tb);
+                            }
+
+                        }
+                        var transform = gridList.Last().RenderTransform as TranslateTransform;
+                        if (transform == null)
+                        {
+                            transform = new TranslateTransform();
+                            gridList.Last().RenderTransform = transform;
+                        }
+                        transform.X = os.GetFromGridList(i).X - canvas1.Margin.Left;
+                        transform.Y = os.GetFromGridList(i).Y - canvas1.Margin.Top;
+                        gridList.Last().RenderTransform = transform;
+                        canvas1.Children.Add(gridList.Last());
                     }
                 }
                 else
@@ -334,6 +365,12 @@ namespace Wpf
                             SerText st = new SerText(relativePoint.X, relativePoint.Y, text.FontFamily.Source, text.FontSize, text.Foreground.ToString(), text.Text);
                             os.AddToTextList(st);
                         }
+                        foreach (Grid table in gridList)
+                        {
+                            Point relativePoint = table.TransformToAncestor(this).Transform(new Point(0, 0));
+                            SerGrid sg = new SerGrid(relativePoint.X, relativePoint.Y, table.RowDefinitions.Count, table.ColumnDefinitions.Count);
+                            os.AddToGridList(sg);
+                        }
                         Stream TestFileStream = File.Create(fileName);
                         BinaryFormatter serializer = new BinaryFormatter();
                         serializer.Serialize(TestFileStream, os);
@@ -469,25 +506,25 @@ namespace Wpf
             tableDialog.ShowDialog();
             if (tableDialog.yesButton)
             {
-                textGrid.Add(new Grid());
-                textGrid.Last().SetValue(DraggableExtender.CanDragProperty, true);
+                gridList.Add(new Grid());
+                gridList.Last().SetValue(DraggableExtender.CanDragProperty, true);
                 for (int i = 0; i < tableDialog.rows; i++)
                 {
                     RowDefinition row = new RowDefinition();
-                    textGrid.Last().RowDefinitions.Add(row);
+                    gridList.Last().RowDefinitions.Add(row);
                     for (int j = 0; j < tableDialog.columns; j++)
                     {
                         ColumnDefinition column = new ColumnDefinition();
                         column.Width = GridLength.Auto;
-                        textGrid.Last().ColumnDefinitions.Add(column);
+                        gridList.Last().ColumnDefinitions.Add(column);
                         TextBox tb = CreateTableTB();
                         Grid.SetRow(tb, j);
                         Grid.SetColumn(tb, i);
-                        textGrid.Last().Children.Add(tb);
+                        gridList.Last().Children.Add(tb);
                     }
 
                 }
-                canvas1.Children.Add(textGrid.Last());
+                canvas1.Children.Add(gridList.Last());
             }
         }
 
