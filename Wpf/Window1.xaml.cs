@@ -63,6 +63,8 @@ namespace Wpf
             tb.AcceptsReturn = true;
             tb.Height = Double.NaN;
             tb.Width = Double.NaN;
+            tb.MouseLeftButtonDown += new MouseButtonEventHandler(TBFocusEvent);
+            tb.GotFocus += new RoutedEventHandler(TBFocusEvent);
             tb.MinWidth = 50;
             tb.Background = Brushes.Transparent;
             return tb;
@@ -94,17 +96,24 @@ namespace Wpf
 
         private void TBFocusEvent(object sender, EventArgs e)
         {
+            FrameworkElement element = sender as FrameworkElement;
+            var par = element.Parent as UIElement;
             selGrid = null;
             selDPB = null;
             selTB = (TextBox)sender;
             selTB.Focus();
             selTB.BorderThickness = new Thickness(1);
             var control = sender as UIElement;
-            if (control != null && control.GetType() == typeof(TextBox))
+            if (control != null && control.GetType() == typeof(TextBox) && par.GetType() != typeof(Grid))
             {
                 canvas1.Children.Remove(control);
                 canvas1.Children.Add(control);
-            }
+            }else
+                if (control != null && control.GetType() == typeof(TextBox) && par.GetType() == typeof(Grid))
+                {
+                    selGrid = (Grid)par;
+                    selGrid.Focus();
+                }
         }
 
         private void PBFocusEvent(object sender, EventArgs e)
