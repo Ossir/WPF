@@ -122,12 +122,6 @@ namespace Wpf
             selTB = null;
             selDPB = (Image)sender;
             selDPB.Focus();
-            //var control = sender as UIElement;
-            //if (control != null && control.GetType() == typeof(TextBox))
-            //{
-            //    canvas1.Children.Remove(control);
-            //    canvas1.Children.Add(control);
-            //}
         }
 
         private void GridFocusEvent(object sender, EventArgs e)
@@ -136,12 +130,6 @@ namespace Wpf
             selDPB = null;
             selGrid = (Grid)sender;
             selGrid.Focus();
-            //var control = sender as UIElement;
-            //if (control != null && control.GetType() == typeof(TextBox))
-            //{
-            //    canvas1.Children.Remove(control);
-            //    canvas1.Children.Add(control);
-            //}
         }
 
         private void TBLostFocus(object sender, EventArgs e)
@@ -450,22 +438,16 @@ namespace Wpf
                 pictureBox1.Remove(selDPB);
                 canvas1.Children.Remove(selDPB);
             }
-            //else
-            //    MessageBox.Show("Выберите картинку на форме");
             if (selTB != null)
             {
                 textList.Remove(selTB);
                 canvas1.Children.Remove(selTB);
             }
-            //else
-            //    MessageBox.Show("Выберите текст для удаления");
             if (selGrid != null)
             {
                 gridList.Remove(selGrid);
                 canvas1.Children.Remove(selGrid);
             }
-            //else
-            //    MessageBox.Show("Выберите таблицу для удаления");
         }
 
         private void button6_Click(object sender, RoutedEventArgs e)
@@ -523,7 +505,7 @@ namespace Wpf
                             selTB.FontFamily = (FontFamily)ffc.ConvertFromString(fd.Font.Name);
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         //Not a truetype font
                         MessageBox.Show("Шрифт не изменен");
