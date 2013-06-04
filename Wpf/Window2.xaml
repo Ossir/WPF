@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Wpf.Window2"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Window2" Height="300" Width="300">
+    Title="Содание таблицы" Height="300" Width="300">
     <Grid>
         <Label Height="28" Margin="12,12,26,0" Name="label1" VerticalAlignment="Top">Введите количество строк и столбцов</Label>
         <Label Height="28" Margin="22,72,136,0" Name="label2" VerticalAlignment="Top">Строк:</Label>

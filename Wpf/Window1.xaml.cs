@@ -19,6 +19,7 @@ namespace Wpf
     /// </summary>
     public partial class Window1 : Window
     {
+        int zoomPercent = 1;
         BitmapImage img;
         List<Image> pictureBox1 = new List<Image>();
         List<TextBox> textList = new List<TextBox>();
@@ -139,6 +140,23 @@ namespace Wpf
                     BinaryFormatter deserializer = new BinaryFormatter();
                     os = (ObjSer)deserializer.Deserialize(TestFileStream);
                     TestFileStream.Close();
+                    for (int i = 0; i < os.GetPicEnumerator(); i++)
+                    {
+                        pictureBox1.Add(new Image());
+                        pictureBox1.Last().MouseLeftButtonDown += new MouseButtonEventHandler(PBFocusEvent);
+                        pictureBox1.Last().Source = StringToImage(os.GetFromPicList(i).PicArray);
+                        pictureBox1.Last().SetValue(DraggableExtender.CanDragProperty, true);
+                        var transform = pictureBox1.Last().RenderTransform as TranslateTransform;
+                        if (transform == null)
+                        {
+                            transform = new TranslateTransform();
+                            pictureBox1.Last().RenderTransform = transform;
+                        }
+                        transform.X = os.GetFromPicList(i).X - canvas1.Margin.Left;
+                        transform.Y = os.GetFromPicList(i).Y - canvas1.Margin.Top;
+                        pictureBox1.Last().RenderTransform = transform;
+                        canvas1.Children.Add(pictureBox1.Last());
+                    }
                     for (int i = 0; i < os.GetTextEnumerator(); i++)
                     {
                         textList.Add(CreateTB());
@@ -158,23 +176,6 @@ namespace Wpf
                         textList.Last().RenderTransform = transform;
                         canvas1.Children.Add(textList.Last());
                     }
-                    for (int i = 0; i < os.GetPicEnumerator(); i++)
-                    {
-                        pictureBox1.Add(new Image());
-                        pictureBox1.Last().MouseLeftButtonDown += new MouseButtonEventHandler(PBFocusEvent);
-                        pictureBox1.Last().Source = StringToImage(os.GetFromPicList(i).PicArray);
-                        pictureBox1.Last().SetValue(DraggableExtender.CanDragProperty, true);
-                        var transform = pictureBox1.Last().RenderTransform as TranslateTransform;
-                        if (transform == null)
-                        {
-                            transform = new TranslateTransform();
-                            pictureBox1.Last().RenderTransform = transform;
-                        }
-                        transform.X = os.GetFromPicList(i).X - canvas1.Margin.Left;
-                        transform.Y = os.GetFromPicList(i).Y - canvas1.Margin.Top;
-                        pictureBox1.Last().RenderTransform = transform;
-                        canvas1.Children.Add(pictureBox1.Last());
-                    }
                     for (int i = 0; i < os.GetGridEnumerator(); i++)
                     {
                         gridList.Add(new Grid());
@@ -189,7 +190,6 @@ namespace Wpf
                                 column.Width = GridLength.Auto;
                                 gridList.Last().ColumnDefinitions.Add(column);
                                 TextBox tb = CreateTableTB();
-                                //tb.Text = os.GetFromGridList(i).text[f+j];
                                 Grid.SetRow(tb, f);
                                 Grid.SetColumn(tb, j);
                                 gridList.Last().Children.Add(tb);
@@ -225,10 +225,12 @@ namespace Wpf
                     pictureBox1.Last().Height = img.Height;
                     pictureBox1.Last().Source = img;
                     pictureBox1.Last().SetValue(DraggableExtender.CanDragProperty,true);
+                    double WidthPercent = img.Width * zoomPercent / 100;
+                    double HeightPercent = img.Height * zoomPercent / 100;
                     while (pictureBox1.Last().Width > canvas1.Width || pictureBox1.Last().Height > canvas1.Height)
                     {
-                        pictureBox1.Last().Width -= 10;
-                        pictureBox1.Last().Height -= 10;
+                        pictureBox1.Last().Width -= WidthPercent;
+                        pictureBox1.Last().Height -= HeightPercent;
                     }
                     canvas1.Children.Add(pictureBox1.Last());
                 }

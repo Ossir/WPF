@@ -28,10 +28,13 @@ namespace Wpf
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            rows = Int32.Parse(textBox2.Text);
-            columns = Int32.Parse(textBox1.Text);
-            yesButton = true;
-            this.Close();
+            if (textBox1.Text.Trim() != "" || textBox2.Text.Trim() != "")
+            {
+                rows = Int32.Parse(textBox2.Text);
+                columns = Int32.Parse(textBox1.Text);
+                yesButton = true;
+                this.Close();
+            }
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
