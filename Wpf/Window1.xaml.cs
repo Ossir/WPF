@@ -183,19 +183,26 @@ namespace Wpf
                         {
                             RowDefinition row = new RowDefinition();
                             gridList.Last().RowDefinitions.Add(row);
-                            for (int j = 0; j < os.GetFromGridList(i).columns / os.GetFromGridList(i).rows; j++)
+                            for (int j = 0; j < os.GetFromGridList(i).columns; j++)
                             {
                                 ColumnDefinition column = new ColumnDefinition();
                                 column.Width = GridLength.Auto;
                                 gridList.Last().ColumnDefinitions.Add(column);
                                 TextBox tb = CreateTableTB();
-                                tb.Text = os.GetFromGridList(i).text[f];
-                                Grid.SetRow(tb, j);
-                                Grid.SetColumn(tb, f);
+                                //tb.Text = os.GetFromGridList(i).text[f+j];
+                                Grid.SetRow(tb, f);
+                                Grid.SetColumn(tb, j);
                                 gridList.Last().Children.Add(tb);
                             }
 
                         }
+                        int k = 0;
+                        foreach (TextBox t in gridList.Last().Children)
+                        {                           
+                            t.Text = os.GetFromGridList(i).text[k];
+                            k++;
+                        }
+
                         var transform = gridList.Last().RenderTransform as TranslateTransform;
                         if (transform == null)
                         {
@@ -374,7 +381,7 @@ namespace Wpf
                                 text.Add(t.Text);
                             }
                             Point relativePoint = table.TransformToAncestor(this).Transform(new Point(0, 0));
-                            SerGrid sg = new SerGrid(relativePoint.X, relativePoint.Y, table.RowDefinitions.Count, table.ColumnDefinitions.Count, text);
+                            SerGrid sg = new SerGrid(relativePoint.X, relativePoint.Y, table.RowDefinitions.Count, table.ColumnDefinitions.Count / table.RowDefinitions.Count, text);
                             os.AddToGridList(sg);
                         }
                         Stream TestFileStream = File.Create(fileName);
@@ -524,8 +531,8 @@ namespace Wpf
                         column.Width = GridLength.Auto;
                         gridList.Last().ColumnDefinitions.Add(column);
                         TextBox tb = CreateTableTB();
-                        Grid.SetRow(tb, j);
-                        Grid.SetColumn(tb, i);
+                        Grid.SetRow(tb, i);
+                        Grid.SetColumn(tb, j);
                         gridList.Last().Children.Add(tb);
                     }
 
