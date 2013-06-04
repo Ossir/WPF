@@ -24,12 +24,12 @@
                 <ImageBrush ImageSource="Resources/view_text.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="276,53,0,0" Name="button4" VerticalAlignment="Top" Width="32" Click="button4_Click" ToolTip="Изменить цвет фона">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="276,52,0,0" Name="button4" VerticalAlignment="Top" Width="32" Click="button4_Click" ToolTip="Изменить цвет фона">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/swatch_color.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="313,53,0,0" Name="button5" VerticalAlignment="Top" Width="32" Click="button5_Click" ToolTip="Удалить узображение">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="314,52,0,0" Name="button5" VerticalAlignment="Top" Width="32" Click="button5_Click" ToolTip="Удалить узображение">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/32.png" />
             </Button.Background>
@@ -45,7 +45,7 @@
                 <ImageBrush ImageSource="Resources/printer_print_hardware.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="238,53,0,0" Name="button8" VerticalAlignment="Top" Width="32" Click="button8_Click" ToolTip="Редактировать текст">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="238,52,0,0" Name="button8" VerticalAlignment="Top" Width="32" Click="button8_Click" ToolTip="Редактировать текст">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/link_url_edit.png" />
             </Button.Background>

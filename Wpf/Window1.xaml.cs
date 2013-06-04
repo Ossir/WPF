@@ -26,6 +26,7 @@ namespace Wpf
         List<Grid> gridList = new List<Grid>();
         Image selDPB = null;
         TextBox selTB = null;
+        Grid selGrid = null;
         System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
         BitmapImage myBitmapImage = new BitmapImage();
 
@@ -93,6 +94,8 @@ namespace Wpf
 
         private void TBFocusEvent(object sender, EventArgs e)
         {
+            selGrid = null;
+            selDPB = null;
             selTB = (TextBox)sender;
             selTB.Focus();
             selTB.BorderThickness = new Thickness(1);
@@ -106,14 +109,30 @@ namespace Wpf
 
         private void PBFocusEvent(object sender, EventArgs e)
         {
+            selGrid = null;
+            selTB = null;
             selDPB = (Image)sender;
             selDPB.Focus();
-            var control = sender as UIElement;
-            if (control != null && control.GetType() == typeof(TextBox))
-            {
-                canvas1.Children.Remove(control);
-                canvas1.Children.Add(control);
-            }
+            //var control = sender as UIElement;
+            //if (control != null && control.GetType() == typeof(TextBox))
+            //{
+            //    canvas1.Children.Remove(control);
+            //    canvas1.Children.Add(control);
+            //}
+        }
+
+        private void GridFocusEvent(object sender, EventArgs e)
+        {
+            selTB = null;
+            selDPB = null;
+            selGrid = (Grid)sender;
+            selGrid.Focus();
+            //var control = sender as UIElement;
+            //if (control != null && control.GetType() == typeof(TextBox))
+            //{
+            //    canvas1.Children.Remove(control);
+            //    canvas1.Children.Add(control);
+            //}
         }
 
         private void TBLostFocus(object sender, EventArgs e)
@@ -422,8 +441,22 @@ namespace Wpf
                 pictureBox1.Remove(selDPB);
                 canvas1.Children.Remove(selDPB);
             }
-            else
-                MessageBox.Show("Выбирите Картинку на форме!!!");
+            //else
+            //    MessageBox.Show("Выберите картинку на форме");
+            if (selTB != null)
+            {
+                textList.Remove(selTB);
+                canvas1.Children.Remove(selTB);
+            }
+            //else
+            //    MessageBox.Show("Выберите текст для удаления");
+            if (selGrid != null)
+            {
+                gridList.Remove(selGrid);
+                canvas1.Children.Remove(selGrid);
+            }
+            //else
+            //    MessageBox.Show("Выберите таблицу для удаления");
         }
 
         private void button6_Click(object sender, RoutedEventArgs e)
@@ -522,6 +555,7 @@ namespace Wpf
             if (tableDialog.yesButton)
             {
                 gridList.Add(new Grid());
+                gridList.Last().MouseLeftButtonDown += new MouseButtonEventHandler(GridFocusEvent);
                 gridList.Last().SetValue(DraggableExtender.CanDragProperty, true);
                 for (int i = 0; i < tableDialog.rows; i++)
                 {
