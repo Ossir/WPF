@@ -28,10 +28,17 @@ namespace Wpf
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            if (textBox1.Text.Trim() != "" || textBox2.Text.Trim() != "")
+            if (textBox1.Text.Trim() != "" && textBox2.Text.Trim() != "")
             {
-                rows = Int32.Parse(textBox2.Text);
-                columns = Int32.Parse(textBox1.Text);
+                try
+                {
+                    rows = Convert.ToInt32(textBox2.Text);
+                    columns = Convert.ToInt32(textBox1.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Введите количество строк или столбцов цифрами");
+                }
                 yesButton = true;
                 this.Close();
             }
