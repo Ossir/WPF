@@ -19,6 +19,7 @@ namespace Wpf
     /// </summary>
     public partial class Window1 : Window
     {
+        UIElement deletedElement = null;
         int zoomPercent = 1;
         BitmapImage img;
         List<Image> pictureBox1 = new List<Image>();
@@ -435,16 +436,19 @@ namespace Wpf
         {
             if (selDPB != null)
             {
+                deletedElement = selDPB;
                 pictureBox1.Remove(selDPB);
                 canvas1.Children.Remove(selDPB);
             }
             if (selTB != null)
             {
+                deletedElement = selTB;
                 textList.Remove(selTB);
                 canvas1.Children.Remove(selTB);
             }
             if (selGrid != null)
             {
+                deletedElement = selGrid;
                 gridList.Remove(selGrid);
                 canvas1.Children.Remove(selGrid);
             }
@@ -624,6 +628,31 @@ namespace Wpf
                     catch
                     {
                     }
+                }
+            }
+        }
+
+        private void button12_Click(object sender, RoutedEventArgs e)
+        {
+            if (deletedElement != null)
+            {
+                if (deletedElement.GetType() == typeof(Image))
+                {
+                    pictureBox1.Add((Image)deletedElement);
+                    canvas1.Children.Add(pictureBox1.Last());
+                    deletedElement = null;
+                }else
+                if (deletedElement.GetType() == typeof(TextBox))
+                {
+                    textList.Add((TextBox)deletedElement);
+                    canvas1.Children.Add(textList.Last());
+                    deletedElement = null;
+                }else
+                if (deletedElement.GetType() == typeof(Grid))
+                {
+                    gridList.Add((Grid)deletedElement);
+                    canvas1.Children.Add(gridList.Last());
+                    deletedElement = null;
                 }
             }
         } 

@@ -74,6 +74,13 @@ namespace Wpf.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap arrow_undo {
+            get {
+                object obj = ResourceManager.GetObject("arrow_undo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap folder_yellow_open_1_ {
             get {
                 object obj = ResourceManager.GetObject("folder_yellow_open_1_", resourceCulture);
