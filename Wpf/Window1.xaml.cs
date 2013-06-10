@@ -11,6 +11,8 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps;
+using System.Windows.Markup;
+using System.Xml;
 
 namespace Wpf
 {
@@ -19,7 +21,9 @@ namespace Wpf
     /// </summary>
     public partial class Window1 : Window
     {
+        string pictureXaml, textXaml;
         UIElement deletedElement = null;
+        SerGrid copyGrid = null;
         int zoomPercent = 1;
         BitmapImage img;
         List<Image> pictureBox1 = new List<Image>();
@@ -654,6 +658,90 @@ namespace Wpf
                     canvas1.Children.Add(gridList.Last());
                     deletedElement = null;
                 }
+            }
+        }
+
+        private void button13_Click(object sender, RoutedEventArgs e)
+        {
+            if (selDPB != null)
+            {
+                pictureXaml = XamlWriter.Save(selDPB);
+            }
+            if (selTB != null)
+            {
+                textXaml = XamlWriter.Save(selTB);
+            }
+            if (selGrid != null)
+            {
+                List<string> text = new List<string>();
+                foreach (TextBox t in selGrid.Children)
+                {
+                    text.Add(t.Text);
+                }
+                Point relativePoint = selGrid.TransformToAncestor(this).Transform(new Point(0, 0));
+                copyGrid = new SerGrid(relativePoint.X, relativePoint.Y, selGrid.RowDefinitions.Count, selGrid.ColumnDefinitions.Count / selGrid.RowDefinitions.Count, text);
+            }
+        }
+
+        private void button14_Click(object sender, RoutedEventArgs e)
+        {
+            if (selDPB != null)
+            {
+                StringReader stringReader = new StringReader(pictureXaml);
+                XmlReader xmlReader = XmlReader.Create(stringReader);
+                Image newImage = (Image)XamlReader.Load(xmlReader);
+                pictureBox1.Add(newImage);
+                pictureBox1.Last().MouseLeftButtonDown += new MouseButtonEventHandler(PBFocusEvent);
+                canvas1.Children.Add(pictureBox1.Last());  
+            }
+            if (selTB != null && selGrid == null)
+            {
+                StringReader stringReader = new StringReader(textXaml);
+                XmlReader xmlReader = XmlReader.Create(stringReader);
+                TextBox newText = (TextBox)XamlReader.Load(xmlReader);
+                textList.Add(newText);
+                textList.Last().MouseLeftButtonDown += new MouseButtonEventHandler(TBFocusEvent);
+                textList.Last().GotFocus += new RoutedEventHandler(TBFocusEvent);
+                textList.Last().LostFocus += new RoutedEventHandler(TBLostFocus);
+                canvas1.Children.Add(textList.Last());  
+            }
+            if (selGrid != null)
+            {
+                gridList.Add(new Grid());
+                gridList.Last().SetValue(DraggableExtender.CanDragProperty, true);
+                for (int f = 0; f < copyGrid.rows; f++)
+                {
+                    RowDefinition row = new RowDefinition();
+                    gridList.Last().RowDefinitions.Add(row);
+                    for (int j = 0; j < copyGrid.columns; j++)
+                    {
+                        ColumnDefinition column = new ColumnDefinition();
+                        column.Width = GridLength.Auto;
+                        gridList.Last().ColumnDefinitions.Add(column);
+                        TextBox tb = CreateTableTB();
+                        Grid.SetRow(tb, f);
+                        Grid.SetColumn(tb, j);
+                        gridList.Last().Children.Add(tb);
+                    }
+
+                }
+                int k = 0;
+                foreach (TextBox t in gridList.Last().Children)
+                {
+                    t.Text = copyGrid.text[k];
+                    k++;
+                }
+
+                var transform = gridList.Last().RenderTransform as TranslateTransform;
+                if (transform == null)
+                {
+                    transform = new TranslateTransform();
+                    gridList.Last().RenderTransform = transform;
+                }
+                transform.X = copyGrid.X - canvas1.Margin.Left;
+                transform.Y = copyGrid.Y - canvas1.Margin.Top;
+                gridList.Last().RenderTransform = transform;
+                canvas1.Children.Add(gridList.Last());
             }
         } 
     }

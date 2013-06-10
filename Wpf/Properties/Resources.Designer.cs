@@ -74,6 +74,13 @@ namespace Wpf.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap actions_edit_copy {
+            get {
+                object obj = ResourceManager.GetObject("actions_edit_copy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap arrow_undo {
             get {
                 object obj = ResourceManager.GetObject("arrow_undo", resourceCulture);
@@ -112,6 +119,13 @@ namespace Wpf.Properties {
         internal static System.Drawing.Bitmap minus_search_out_zoom {
             get {
                 object obj = ResourceManager.GetObject("minus_search_out_zoom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap paste {
+            get {
+                object obj = ResourceManager.GetObject("paste", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

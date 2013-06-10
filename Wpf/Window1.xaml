@@ -34,13 +34,13 @@
                 <ImageBrush ImageSource="Resources/32.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="437,22,0,0" Name="button6" VerticalAlignment="Top" Width="32" Click="button6_Click" ToolTip="Справка">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="513,22,0,0" Name="button6" VerticalAlignment="Top" Width="32" Click="button6_Click" ToolTip="Справка">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/help.png" />
             </Button.Background>
         </Button>
         <Canvas Margin="12,50,12,12" Name="canvas1" Width="1234" Height="810" Background="Gray" ClipToBounds="True"></Canvas>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="399,22,0,0" Name="button7" VerticalAlignment="Top" Width="32" Click="button7_Click" ToolTip="Печать изображения">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="475,22,0,0" Name="button7" VerticalAlignment="Top" Width="32" Click="button7_Click" ToolTip="Печать изображения">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/printer_print_hardware.png" />
             </Button.Background>
@@ -68,6 +68,16 @@
             <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="361,22,0,0" Name="button12" ToolTip="Отмена" VerticalAlignment="Top" Width="32" Click="button12_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="Resources/arrow_undo.png" />
+                </Button.Background>
+            </Button>
+            <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="399,22,0,0" Name="button13" ToolTip="Копировать" VerticalAlignment="Top" Width="32" Click="button13_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="Resources/actions_edit_copy.png" />
+                </Button.Background>
+            </Button>
+            <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="437,22,0,0" Name="button14" ToolTip="Вставить" VerticalAlignment="Top" Width="32" Click="button14_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="Resources/paste.png" />
                 </Button.Background>
             </Button>
         </Grid>
