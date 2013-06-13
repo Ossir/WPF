@@ -90,6 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CloseableHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -108,6 +112,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClosableTab.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CloseableHeader.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>CloseableHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DragElement.cs" />
     <Compile Include="ObjSer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

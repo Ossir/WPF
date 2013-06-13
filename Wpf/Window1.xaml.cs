@@ -751,8 +751,8 @@ namespace Wpf
 
         private void button15_Click(object sender, RoutedEventArgs e)
         {
-            TabItem ti = new TabItem();
-            ti.Header = "tab" + (tabControl.Items.Count + 1);
+            ClosableTab ti = new ClosableTab();
+            ti.Title = "tab" + (tabControl.Items.Count + 1);
             Canvas c = new Canvas();
             c.Height = 810;
             c.Width = 1234;
@@ -770,7 +770,7 @@ namespace Wpf
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TabItem item = tabControl.SelectedItem as TabItem;
+            ClosableTab item = tabControl.SelectedItem as ClosableTab;
             if (item == null)
                 return;
             if (item.Content != null)
