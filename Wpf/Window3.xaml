@@ -1,0 +1,11 @@
+﻿<Window x:Class="Wpf.Window3"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Window3" Height="178" Width="470">
+    <Grid>
+        <Button Height="23" Margin="0,0,93,12" Name="button1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="button1_Click">Ok</Button>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="button2" VerticalAlignment="Bottom" Width="75" Click="button2_Click">Cancel</Button>
+        <Label Margin="12,12,12,41" Name="label1" AllowDrop="True" ClipToBounds="True" FontSize="20" VerticalContentAlignment="Top">
+            <TextBlock Text="Вы уверены, что хотите закрыть вкладку? Все несохраненные данные будут утеряны" TextWrapping="Wrap" /></Label>
+    </Grid>
+</Window>

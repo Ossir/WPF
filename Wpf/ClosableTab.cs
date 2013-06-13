@@ -103,7 +103,12 @@ class ClosableTab : TabItem
     // Button Close Click - Remove the Tab - (or raise an event indicating a "CloseTab" event has occurred)
     void button_close_Click(object sender, RoutedEventArgs e)
     {
-        ((TabControl)this.Parent).Items.Remove(this);
+        Wpf.Window3 tableDialog = new Wpf.Window3();
+        tableDialog.ShowDialog();
+        if (tableDialog.yesButton)
+        {
+            ((TabControl)this.Parent).Items.Remove(this);
+        }
     }
 
 
