@@ -88,9 +88,23 @@ namespace Wpf.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap delete {
+            get {
+                object obj = ResourceManager.GetObject("delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap folder_yellow_open_1_ {
             get {
                 object obj = ResourceManager.GetObject("folder_yellow_open_1_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap health_add_new_plus {
+            get {
+                object obj = ResourceManager.GetObject("health_add_new_plus", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

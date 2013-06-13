@@ -8,76 +8,85 @@
     Title="Конструктор рекламных материалов" Height="970" Width="1300" xmlns:my="http://schemas.microsoft.com/wpf/2008/toolkit" MaxHeight="Infinity" MaxWidth="Infinity" MinHeight="0" MinWidth="0" ResizeMode="CanResize" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" WindowState="Normal">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
     <Grid Name="myGrid">
-        <Rectangle Margin="12,50,12,12" Name="rectangle1" Stroke="Black" Width="1236" Height="812" />
+        <Rectangle Margin="12,66,12,12" Name="rectangle1" Stroke="Black" Width="1236" Height="812" />
         <Button Height="32" HorizontalAlignment="Left" Margin="21,22,0,0" Name="button1" VerticalAlignment="Top" Width="32" AllowDrop="False" Click="button1_Click" ToolTip="Сохранить изображение">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/3floppy_unmount.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="59,21,0,0" Name="button2" VerticalAlignment="Top" Width="32" Click="button2_Click" ToolTip="Открыть изображение">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="97,22,0,0" Name="button2" VerticalAlignment="Top" Width="32" Click="button2_Click" ToolTip="Открыть изображение">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/folder_yellow_open(1).png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="211,21,0,0" Name="button3" VerticalAlignment="Top" Width="32" Click="button3_Click" ToolTip="Добавить текст">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="249,22,0,0" Name="button3" VerticalAlignment="Top" Width="32" Click="button3_Click" ToolTip="Добавить текст">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/view_text.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="285,21,0,0" Name="button4" VerticalAlignment="Top" Width="32" Click="button4_Click" ToolTip="Изменить цвет фона">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="323,22,0,0" Name="button4" VerticalAlignment="Top" Width="32" Click="button4_Click" ToolTip="Изменить цвет фона">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/swatch_color.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="323,21,0,0" Name="button5" VerticalAlignment="Top" Width="32" Click="button5_Click" ToolTip="Удалить">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="361,22,0,0" Name="button5" VerticalAlignment="Top" Width="32" Click="button5_Click" ToolTip="Удалить">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/32.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="513,22,0,0" Name="button6" VerticalAlignment="Top" Width="32" Click="button6_Click" ToolTip="Справка">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="551,23,0,0" Name="button6" VerticalAlignment="Top" Width="32" Click="button6_Click" ToolTip="Справка">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/help.png" />
             </Button.Background>
         </Button>
-        <Canvas Margin="12,50,12,12" Name="canvas1" Width="1234" Height="810" Background="Gray" ClipToBounds="True"></Canvas>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="475,22,0,0" Name="button7" VerticalAlignment="Top" Width="32" Click="button7_Click" ToolTip="Печать изображения">
+            <TabControl Margin="0,60,0,-60" MinHeight="500" MinWidth="400" Grid.IsSharedSizeScope="False" Name="tabControl" SelectionChanged="tabControl_SelectionChanged">
+                <TabItem Header="New tab" IsSelected="True">
+                    <Canvas Margin="12,-74,12,12" Name="canvas1" Width="1234" Height="810" Background="Gray" ClipToBounds="True"></Canvas>
+                </TabItem>
+            </TabControl>
+            <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="513,23,0,0" Name="button7" VerticalAlignment="Top" Width="32" Click="button7_Click" ToolTip="Печать изображения">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/printer_print_hardware.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="247,21,0,0" Name="button8" VerticalAlignment="Top" Width="32" Click="button8_Click" ToolTip="Редактировать текст">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="285,22,0,0" Name="button8" VerticalAlignment="Top" Width="32" Click="button8_Click" ToolTip="Редактировать текст">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/link_url_edit.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="97,21,0,0" Name="button9" ToolTip="Уменьшить картинку" VerticalAlignment="Top" Width="32" Click="button9_Click">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="135,22,0,0" Name="button9" ToolTip="Уменьшить картинку" VerticalAlignment="Top" Width="32" Click="button9_Click">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/zoom_magnify_magnifier_in_search.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="135,21,0,0" Name="button10" ToolTip="Увеличить картинку" VerticalAlignment="Top" Width="32" Click="button10_Click">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="173,22,0,0" Name="button10" ToolTip="Увеличить картинку" VerticalAlignment="Top" Width="32" Click="button10_Click">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/minus_search_out_zoom.png" />
             </Button.Background>
         </Button>
-        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="173,21,0,0" Name="button11" ToolTip="Создание таблицы" VerticalAlignment="Top" Width="32" Click="button11_Click" Visibility="Visible">
+        <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="211,22,0,0" Name="button11" ToolTip="Создание таблицы" VerticalAlignment="Top" Width="32" Click="button11_Click" Visibility="Visible">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/heatmap_table.png" />
             </Button.Background>
         </Button>
-            <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="361,22,0,0" Name="button12" ToolTip="Отмена" VerticalAlignment="Top" Width="32" Click="button12_Click">
+            <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="399,23,0,0" Name="button12" ToolTip="Отмена" VerticalAlignment="Top" Width="32" Click="button12_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="Resources/arrow_undo.png" />
                 </Button.Background>
             </Button>
-            <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="399,22,0,0" Name="button13" ToolTip="Копировать" VerticalAlignment="Top" Width="32" Click="button13_Click">
+            <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="437,23,0,0" Name="button13" ToolTip="Копировать" VerticalAlignment="Top" Width="32" Click="button13_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="Resources/actions_edit_copy.png" />
                 </Button.Background>
             </Button>
-            <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="437,22,0,0" Name="button14" ToolTip="Вставить" VerticalAlignment="Top" Width="32" Click="button14_Click">
+            <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="475,23,0,0" Name="button14" ToolTip="Вставить" VerticalAlignment="Top" Width="32" Click="button14_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="Resources/paste.png" />
+                </Button.Background>
+            </Button>
+            <Button AllowDrop="False" Height="32" HorizontalAlignment="Left" Margin="59,22,0,0" Name="button15" ToolTip="Новая вкладка" VerticalAlignment="Top" Width="32" Click="button15_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="Resources/health_add_new_plus.png" />
                 </Button.Background>
             </Button>
         </Grid>

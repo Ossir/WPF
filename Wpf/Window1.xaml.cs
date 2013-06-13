@@ -27,6 +27,8 @@ namespace Wpf
         int zoomPercent = 1;
         BitmapImage img;
         List<Image> pictureBox1 = new List<Image>();
+        List<Canvas> canvasList = new List<Canvas>();
+        Canvas selCanv = null;
         List<TextBox> textList = new List<TextBox>();
         List<Grid> gridList = new List<Grid>();
         Image selDPB = null;
@@ -38,6 +40,8 @@ namespace Wpf
         public Window1()
         {
             InitializeComponent();
+            canvasList.Add(canvas1);
+            selCanv = canvasList.Last();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -111,8 +115,8 @@ namespace Wpf
             var control = sender as UIElement;
             if (control != null && control.GetType() == typeof(TextBox) && par.GetType() != typeof(Grid))
             {
-                canvas1.Children.Remove(control);
-                canvas1.Children.Add(control);
+                selCanv.Children.Remove(control);
+                selCanv.Children.Add(control);
             }else
                 if (control != null && control.GetType() == typeof(TextBox) && par.GetType() == typeof(Grid))
                 {
@@ -173,10 +177,10 @@ namespace Wpf
                             transform = new TranslateTransform();
                             pictureBox1.Last().RenderTransform = transform;
                         }
-                        transform.X = os.GetFromPicList(i).X - canvas1.Margin.Left;
-                        transform.Y = os.GetFromPicList(i).Y - canvas1.Margin.Top;
+                        transform.X = os.GetFromPicList(i).X - selCanv.Margin.Left;
+                        transform.Y = os.GetFromPicList(i).Y - selCanv.Margin.Top;
                         pictureBox1.Last().RenderTransform = transform;
-                        canvas1.Children.Add(pictureBox1.Last());
+                        selCanv.Children.Add(pictureBox1.Last());
                     }
                     for (int i = 0; i < os.GetTextEnumerator(); i++)
                     {
@@ -192,10 +196,10 @@ namespace Wpf
                             transform = new TranslateTransform();
                             textList.Last().RenderTransform = transform;
                         }
-                        transform.X = os.GetFromTextList(i).X - canvas1.Margin.Left;
-                        transform.Y = os.GetFromTextList(i).Y - canvas1.Margin.Top;
+                        transform.X = os.GetFromTextList(i).X - selCanv.Margin.Left;
+                        transform.Y = os.GetFromTextList(i).Y - selCanv.Margin.Top;
                         textList.Last().RenderTransform = transform;
-                        canvas1.Children.Add(textList.Last());
+                        selCanv.Children.Add(textList.Last());
                     }
                     for (int i = 0; i < os.GetGridEnumerator(); i++)
                     {
@@ -230,10 +234,10 @@ namespace Wpf
                             transform = new TranslateTransform();
                             gridList.Last().RenderTransform = transform;
                         }
-                        transform.X = os.GetFromGridList(i).X - canvas1.Margin.Left;
-                        transform.Y = os.GetFromGridList(i).Y - canvas1.Margin.Top;
+                        transform.X = os.GetFromGridList(i).X - selCanv.Margin.Left;
+                        transform.Y = os.GetFromGridList(i).Y - selCanv.Margin.Top;
                         gridList.Last().RenderTransform = transform;
-                        canvas1.Children.Add(gridList.Last());
+                        selCanv.Children.Add(gridList.Last());
                     }
                 }
                 else
@@ -248,12 +252,12 @@ namespace Wpf
                     pictureBox1.Last().SetValue(DraggableExtender.CanDragProperty,true);
                     double WidthPercent = img.Width * zoomPercent / 100;
                     double HeightPercent = img.Height * zoomPercent / 100;
-                    while (pictureBox1.Last().Width > canvas1.Width || pictureBox1.Last().Height > canvas1.Height)
+                    while (pictureBox1.Last().Width > selCanv.Width || pictureBox1.Last().Height > selCanv.Height)
                     {
                         pictureBox1.Last().Width -= WidthPercent;
                         pictureBox1.Last().Height -= HeightPercent;
                     }
-                    canvas1.Children.Add(pictureBox1.Last());
+                    selCanv.Children.Add(pictureBox1.Last());
                 }
             }
                 
@@ -262,7 +266,7 @@ namespace Wpf
         private void button3_Click(object sender, RoutedEventArgs e)
         {
             textList.Add(CreateTB());
-            canvas1.Children.Add(textList.Last());
+            selCanv.Children.Add(textList.Last());
         }
 
         private void CreateSaveBitmap(Canvas canvas, string filename)
@@ -348,7 +352,7 @@ namespace Wpf
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            canvas1.InvalidateVisual();
+            selCanv.InvalidateVisual();
             Microsoft.Win32.SaveFileDialog savedialog = new Microsoft.Win32.SaveFileDialog();
             savedialog.Title = "Сохранить картинку как ...";
             savedialog.OverwritePrompt = true;
@@ -368,19 +372,19 @@ namespace Wpf
                 switch (strFilExtn)
                 {
                     case "bmp":
-                        CreateSaveBitmap(canvas1, fileName);
+                        CreateSaveBitmap(selCanv, fileName);
                         break;
                     case "jpg":
-                        CreateSaveBitmap(canvas1, fileName);
+                        CreateSaveBitmap(selCanv, fileName);
                         break;
                     case "gif":
-                        CreateSaveBitmap(canvas1, fileName);
+                        CreateSaveBitmap(selCanv, fileName);
                         break;
                     case "tif":
-                        CreateSaveBitmap(canvas1, fileName);
+                        CreateSaveBitmap(selCanv, fileName);
                         break;
                     case "png":
-                        CreateSaveBitmap(canvas1, fileName);
+                        CreateSaveBitmap(selCanv, fileName);
                         break;
                     case ".ac":
                         ObjSer os = new ObjSer();
@@ -433,7 +437,7 @@ namespace Wpf
 
         private void button4_Click(object sender, RoutedEventArgs e)
         {
-            canvas1.Background = ChooseColor();
+            selCanv.Background = ChooseColor();
         }
 
         private void button5_Click(object sender, RoutedEventArgs e)
@@ -442,19 +446,19 @@ namespace Wpf
             {
                 deletedElement = selDPB;
                 pictureBox1.Remove(selDPB);
-                canvas1.Children.Remove(selDPB);
+                selCanv.Children.Remove(selDPB);
             }
             if (selTB != null)
             {
                 deletedElement = selTB;
                 textList.Remove(selTB);
-                canvas1.Children.Remove(selTB);
+                selCanv.Children.Remove(selTB);
             }
             if (selGrid != null)
             {
                 deletedElement = selGrid;
                 gridList.Remove(selGrid);
-                canvas1.Children.Remove(selGrid);
+                selCanv.Children.Remove(selGrid);
             }
         }
 
@@ -468,26 +472,26 @@ namespace Wpf
         private void button7_Click(object sender, RoutedEventArgs e)
         {
             DoPreview("n");
-            //Transform transform = canvas1.LayoutTransform;
-            //canvas1.LayoutTransform = null;
+            //Transform transform = selCanv.LayoutTransform;
+            //selCanv.LayoutTransform = null;
 
             //// fix margin offset as well
-            //Thickness margin = canvas1.Margin;
-            //Thickness marginOld = canvas1.Margin;
-            //canvas1.Margin = new Thickness(0, 0, 0, 0);
+            //Thickness margin = selCanv.Margin;
+            //Thickness marginOld = selCanv.Margin;
+            //selCanv.Margin = new Thickness(0, 0, 0, 0);
             //RenderTargetBitmap renderBitmap = new RenderTargetBitmap(
-            // (int)canvas1.Width, (int)canvas1.Height,
+            // (int)selCanv.Width, (int)selCanv.Height,
             // 96d, 96d, PixelFormats.Pbgra32);
             //// needed otherwise the image output is black
-            //canvas1.Measure(new Size((int)canvas1.Width, (int)canvas1.Height));
-            //canvas1.Arrange(new Rect(new Size((int)canvas1.Width, (int)canvas1.Height)));
+            //selCanv.Measure(new Size((int)selCanv.Width, (int)selCanv.Height));
+            //selCanv.Arrange(new Rect(new Size((int)selCanv.Width, (int)selCanv.Height)));
 
-            //renderBitmap.Render(canvas1);
+            //renderBitmap.Render(selCanv);
             //var vis = new DrawingVisual();
             //var dc = vis.RenderOpen();
             //dc.DrawImage(renderBitmap, new Rect { Width = renderBitmap.Width, Height = renderBitmap.Height });
             //dc.Close();
-            //canvas1.Margin = marginOld;
+            //selCanv.Margin = marginOld;
             //PrintDialog printDialog1 = new PrintDialog();
             //if (printDialog1.ShowDialog() == true)
             //{
@@ -572,7 +576,7 @@ namespace Wpf
                     }
 
                 }
-                canvas1.Children.Add(gridList.Last());
+                selCanv.Children.Add(gridList.Last());
             }
         }
 
@@ -597,7 +601,7 @@ namespace Wpf
                 using (XpsDocument doc = new XpsDocument(fileName, FileAccess.ReadWrite))
                 {
                     XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
-                    writer.Write(canvas1);
+                    writer.Write(selCanv);
                 }
 
                 // Read the XPS document into a dynamically generated
@@ -643,19 +647,19 @@ namespace Wpf
                 if (deletedElement.GetType() == typeof(Image))
                 {
                     pictureBox1.Add((Image)deletedElement);
-                    canvas1.Children.Add(pictureBox1.Last());
+                    selCanv.Children.Add(pictureBox1.Last());
                     deletedElement = null;
                 }else
                 if (deletedElement.GetType() == typeof(TextBox))
                 {
                     textList.Add((TextBox)deletedElement);
-                    canvas1.Children.Add(textList.Last());
+                    selCanv.Children.Add(textList.Last());
                     deletedElement = null;
                 }else
                 if (deletedElement.GetType() == typeof(Grid))
                 {
                     gridList.Add((Grid)deletedElement);
-                    canvas1.Children.Add(gridList.Last());
+                    selCanv.Children.Add(gridList.Last());
                     deletedElement = null;
                 }
             }
@@ -692,7 +696,7 @@ namespace Wpf
                 Image newImage = (Image)XamlReader.Load(xmlReader);
                 pictureBox1.Add(newImage);
                 pictureBox1.Last().MouseLeftButtonDown += new MouseButtonEventHandler(PBFocusEvent);
-                canvas1.Children.Add(pictureBox1.Last());  
+                selCanv.Children.Add(pictureBox1.Last());  
             }
             if (selTB != null && selGrid == null)
             {
@@ -703,7 +707,7 @@ namespace Wpf
                 textList.Last().MouseLeftButtonDown += new MouseButtonEventHandler(TBFocusEvent);
                 textList.Last().GotFocus += new RoutedEventHandler(TBFocusEvent);
                 textList.Last().LostFocus += new RoutedEventHandler(TBLostFocus);
-                canvas1.Children.Add(textList.Last());  
+                selCanv.Children.Add(textList.Last());  
             }
             if (selGrid != null)
             {
@@ -738,10 +742,41 @@ namespace Wpf
                     transform = new TranslateTransform();
                     gridList.Last().RenderTransform = transform;
                 }
-                transform.X = copyGrid.X - canvas1.Margin.Left;
-                transform.Y = copyGrid.Y - canvas1.Margin.Top;
+                transform.X = copyGrid.X - selCanv.Margin.Left;
+                transform.Y = copyGrid.Y - selCanv.Margin.Top;
                 gridList.Last().RenderTransform = transform;
-                canvas1.Children.Add(gridList.Last());
+                selCanv.Children.Add(gridList.Last());
+            }
+        }
+
+        private void button15_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem ti = new TabItem();
+            ti.Header = "tab" + (tabControl.Items.Count + 1);
+            Canvas c = new Canvas();
+            c.Height = 810;
+            c.Width = 1234;
+            c.Background = Brushes.Gray;
+            c.ClipToBounds = true;
+            c.Margin = new Thickness(12, -74, 12, 12);
+            ti.Content = c;
+            TextBox t = new TextBox();
+            t.Name = "txt";
+            tabControl.Items.Add(ti);
+            tabControl.SelectedIndex = tabControl.Items.Count - 1;
+            canvasList.Add(c);
+            selCanv = canvasList.Last();
+        }
+
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TabItem item = tabControl.SelectedItem as TabItem;
+            if (item == null)
+                return;
+            if (item.Content != null)
+            {
+                UIElement element = (item.Content as UIElement);
+                selCanv = (Canvas)element;
             }
         } 
     }
