@@ -170,6 +170,8 @@ namespace Wpf
                         pictureBox1.Add(new Image());
                         pictureBox1.Last().MouseLeftButtonDown += new MouseButtonEventHandler(PBFocusEvent);
                         pictureBox1.Last().Source = StringToImage(os.GetFromPicList(i).PicArray);
+                        pictureBox1.Last().Width = StringToImage(os.GetFromPicList(i).PicArray).Width;
+                        pictureBox1.Last().Height = StringToImage(os.GetFromPicList(i).PicArray).Height;
                         pictureBox1.Last().SetValue(DraggableExtender.CanDragProperty, true);
                         double WidthPercent = StringToImage(os.GetFromPicList(i).PicArray).Width * zoomPercent / 100;
                         double HeightPercent = StringToImage(os.GetFromPicList(i).PicArray).Height * zoomPercent / 100;
@@ -184,8 +186,8 @@ namespace Wpf
                             transform = new TranslateTransform();
                             pictureBox1.Last().RenderTransform = transform;
                         }
-                        transform.X = os.GetFromPicList(i).X - selCanv.Margin.Left;
-                        transform.Y = os.GetFromPicList(i).Y - selCanv.Margin.Top;
+                        transform.X = os.GetFromPicList(i).X - Math.Abs(selCanv.Margin.Left);
+                        transform.Y = os.GetFromPicList(i).Y - Math.Abs(selCanv.Margin.Top);
                         pictureBox1.Last().RenderTransform = transform;
                         selCanv.Children.Add(pictureBox1.Last());
                     }
@@ -203,8 +205,8 @@ namespace Wpf
                             transform = new TranslateTransform();
                             textList.Last().RenderTransform = transform;
                         }
-                        transform.X = os.GetFromTextList(i).X - selCanv.Margin.Left;
-                        transform.Y = os.GetFromTextList(i).Y - selCanv.Margin.Top;
+                        transform.X = os.GetFromTextList(i).X - Math.Abs(selCanv.Margin.Left);
+                        transform.Y = os.GetFromTextList(i).Y - Math.Abs(selCanv.Margin.Top);
                         textList.Last().RenderTransform = transform;
                         selCanv.Children.Add(textList.Last());
                     }
@@ -241,8 +243,8 @@ namespace Wpf
                             transform = new TranslateTransform();
                             gridList.Last().RenderTransform = transform;
                         }
-                        transform.X = os.GetFromGridList(i).X - selCanv.Margin.Left;
-                        transform.Y = os.GetFromGridList(i).Y - selCanv.Margin.Top;
+                        transform.X = os.GetFromGridList(i).X - Math.Abs(selCanv.Margin.Left);
+                        transform.Y = os.GetFromGridList(i).Y - Math.Abs(selCanv.Margin.Top);
                         gridList.Last().RenderTransform = transform;
                         selCanv.Children.Add(gridList.Last());
                     }
