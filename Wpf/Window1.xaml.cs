@@ -171,6 +171,13 @@ namespace Wpf
                         pictureBox1.Last().MouseLeftButtonDown += new MouseButtonEventHandler(PBFocusEvent);
                         pictureBox1.Last().Source = StringToImage(os.GetFromPicList(i).PicArray);
                         pictureBox1.Last().SetValue(DraggableExtender.CanDragProperty, true);
+                        double WidthPercent = StringToImage(os.GetFromPicList(i).PicArray).Width * zoomPercent / 100;
+                        double HeightPercent = StringToImage(os.GetFromPicList(i).PicArray).Height * zoomPercent / 100;
+                        while (pictureBox1.Last().Width > selCanv.Width || pictureBox1.Last().Height > selCanv.Height)
+                        {
+                            pictureBox1.Last().Width -= WidthPercent;
+                            pictureBox1.Last().Height -= HeightPercent;
+                        }
                         var transform = pictureBox1.Last().RenderTransform as TranslateTransform;
                         if (transform == null)
                         {
